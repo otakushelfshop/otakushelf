@@ -14,17 +14,22 @@
     />
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
   </head>
-  <body>
+  <body id="top">
     <header class="site-header">
-      <a class="logo" href="index.html">
-        <img src="assets/icons/favicon-32.png" alt="" class="logo-icon" />
-        Otaku <span>Shelf</span> オタクシェルフ
-      </a>
-      <nav class="site-nav">
-        <a href="index.html">Gallery</a>
-        <a href="about.html">About</a>
-        <a href="admin/">Admin</a>
-      </nav>
+      <div class="header-inner">
+        <a class="logo" href="index.html">
+          <img src="assets/icons/favicon-32.png" alt="" class="logo-icon" />
+          <span class="logo-text">
+            <span class="logo-name">Otaku <span>Shelf</span></span>
+            <span class="logo-jp" lang="ja">オタクシェルフ</span>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="index.html" aria-current="page">Gallery</a>
+          <a href="about.html">About</a>
+          <a class="nav-cta" href="about.html#ordering">Order a figure</a>
+        </nav>
+      </div>
     </header>
 
     <section class="hero">
@@ -84,10 +89,18 @@
         <div class="modal-media">
           <div class="modal-image" id="modalImageWrap">
             <img id="modalImage" src="" alt="" draggable="false" />
-            <button class="photo-nav prev" id="photoPrev" aria-label="Previous photo">
+            <button
+              class="photo-nav prev"
+              id="photoPrev"
+              aria-label="Previous photo"
+            >
               &#8249;
             </button>
-            <button class="photo-nav next" id="photoNext" aria-label="Next photo">
+            <button
+              class="photo-nav next"
+              id="photoNext"
+              aria-label="Next photo"
+            >
               &#8250;
             </button>
             <span class="zoom-hint" id="zoomHint">Click photo to zoom</span>
@@ -114,7 +127,58 @@
     </div>
 
     <footer class="site-footer">
-      Otaku Shelf — built with HTML, CSS &amp; vanilla JavaScript.
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="logo" href="index.html">
+            <img src="assets/icons/favicon-32.png" alt="" class="logo-icon" />
+            Otaku <span>Shelf</span>
+          </a>
+          <p class="footer-jp" lang="ja">オタクシェルフ</p>
+          <p class="footer-tagline">
+            A digital display case for a collection of figures and statues.
+          </p>
+        </div>
+
+        <nav class="footer-col" aria-label="Footer">
+          <h2>Explore</h2>
+          <ul>
+            <li><a href="index.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="about.html#ordering">Ordering a figure</a></li>
+          </ul>
+        </nav>
+
+        <!--
+        EDIT ME: keep these in sync with the contact details on about.html.
+      -->
+        <div class="footer-col">
+          <h2>Contact</h2>
+          <ul>
+            <li><a href="mailto:you@example.com">Email</a></li>
+            <li>
+              <a
+                href="https://instagram.com/yourhandle"
+                target="_blank"
+                rel="noopener"
+                >Instagram</a
+              >
+            </li>
+            <li>
+              <a href="https://x.com/yourhandle" target="_blank" rel="noopener"
+                >Twitter / X</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Otaku Shelf. All rights reserved.</span>
+        <span class="footer-bottom-links">
+          <a href="admin/">Admin</a>
+          <a href="#top">Back to top ↑</a>
+        </span>
+      </div>
     </footer>
 
     <script src="js/compare.js"></script>
