@@ -1,9 +1,10 @@
 # Otaku Shelf
 
-A figurine showcase site: dark "spotlight" gallery with one featured
-piece up top, click-to-zoom photos with per-figure details, an About
-page with contact/ordering info, and an admin at `/admin/` for adding,
-editing, removing, and featuring figures.
+The website for Otaku Shelf, a Canadian studio making 3D-printed,
+hand-painted collectibles. A dark "spotlight" gallery with one featured
+piece up top and click-to-zoom photos with per-figure details, a price
+list, About and How to order pages, and an admin at `/admin/` for
+adding, editing, pricing, removing, and featuring pieces.
 
 There's no database or backend. Figures live in `data/figures.json` and
 photos in `assets/statues/web/`, both in this repo. The admin is
@@ -15,17 +16,20 @@ It's free, with no card or third-party account needed beyond GitHub.
 
 ```
 okakushelf/
-├── index.html            Gallery page (featured piece + grid) — what visitors see
-├── about.html            Contact info + how to order a figure (edit the placeholders)
+├── index.html            Gallery page (hero, featured piece + grid, details modal)
+├── prices.html           Price list: every piece with a price, grouped and searchable
+├── about.html            Studio story, what we make, how a figure is made, tools
+├── ordering.html         Ordering, shipping, sizes, custom work, care, FAQ, contact
 ├── admin/index.html      Loads Sveltia CMS
 ├── admin/config.yml      CMS settings: repo, fields, photo folder, image resizing
 ├── admin.html            Redirects old /admin.html links to /admin/
 ├── css/styles.css        All styling (spotlight glow, modal, featured card)
-├── js/data.js            Loads data/figures.json and data/reference-items.json
+├── js/data.js            Loads data/figures.json and data/reference-items.json; slugs + price formatting
+├── js/prices.js          Builds the price list on prices.html
 ├── js/main.js            Gallery rendering + featured piece + zoom/details modal logic
 ├── js/compare.js         Size-comparison maths and wording (no DOM, unit-testable)
 ├── js/compare-ui.js      Size-comparison panel, unit toggle, card/featured summaries
-├── data/figures.json     The collection: { "figures": [ ... ] }
+├── data/figures.json     All pieces: { "figures": [ ... ] }
 ├── data/reference-items.json   Everyday objects figures are compared against
 └── assets/statues/web/   Web-sized photos used by the site (CMS uploads go here)
 ```
@@ -84,6 +88,24 @@ written to your files; commit and push them yourself.
 
 Removing a figure doesn't delete its photo; clean up unused photos from
 the CMS's **Assets** tab if you like.
+
+### Prices, photos, and Etsy links
+
+- **Price (CAD):** shown on the gallery card, featured piece, details
+  modal, and price list. Leave it empty to keep a piece off the price list
+  (e.g. one that isn't for sale).
+- **Type:** *Statue / sculpture* or *Hobby accessory*; groups the price list.
+- **Etsy listing link:** optional. Adds an **Order on Etsy** button to the
+  piece's details and price-list entry. Without it, the button goes to
+  *How to order* (or *Get in touch* for unpriced pieces).
+- **Main photo** is optional: pieces without one appear on the price list
+  ("Photos coming soon") but not in the gallery. Add a photo and the piece
+  shows up in the gallery automatically.
+
+Each piece in the gallery has its own link, made from its name, e.g.
+`index.html#bunny-akali`. Opening it shows that piece's details, so it can
+be shared or linked from Etsy and social posts. Renaming a piece changes
+its link.
 
 ## Size comparisons
 
@@ -155,7 +177,12 @@ No build step. From this folder run `python3 -m http.server` and visit
 `http://localhost:8000` (opening `index.html` directly won't work,
 because browsers block `fetch` on local files).
 
-## The About page
+## Placeholders to fill in
 
-`about.html` has placeholder contact and ordering details marked with
-`<!-- EDIT ME -->` comments — fill those in before going live.
+Search the HTML for `EDIT ME`. Still to come from the client:
+
+- The real Etsy shop link (`YOUR-SHOP-NAME` on `ordering.html` and in
+  every page's footer), email, and social accounts.
+- The founding story and how long the studio has been running (`about.html`).
+- Work-in-progress and studio photos, plus exact resin/filament/paint brands.
+- Photos, measurements, scales, and Etsy links for each piece (via the admin).

@@ -28,7 +28,11 @@ const DataStore = {
     }
   },
 
-  /** Load all figures, newest first. Each gets a stable-per-load `id`. */
+  /**
+   * Load all pieces, newest first. Each gets a stable-per-load `id`, a
+   * URL-friendly `slug` (used for links like index.html#bunny-akali), and a
+   * numeric `price` (or null when it isn't for sale / not priced yet).
+   */
   async getAll() {
     // no-cache: always revalidate, so new CMS edits show up once Pages redeploys.
     const res = await fetch(FIGURES_URL, { cache: 'no-cache' });
@@ -36,10 +40,47 @@ const DataStore = {
 
     const data = await res.json();
     const list = Array.isArray(data) ? data : data.figures || [];
+    const used = new Set();
 
     return list
       .filter((fig) => fig && fig.name)
-      .map((fig, i) => ({ ...fig, id: String(i) }))
+      .map((fig, i) => ({
+        ...fig,
+        id: String(i),
+        slug: uniqueSlug(slugify(fig.name) || `piece-${i + 1}`, used),
+        price: toPrice(fig.price),
+        etsy_url: /^https:\/\//i.test(String(fig.etsy_url || '').trim()) ? fig.etsy_url.trim() : '',
+      }))
       .sort((a, b) => String(b.dateAdded || '').localeCompare(String(a.dateAdded || '')));
   },
 };
+
+/** "Misty & Shiny Gyarados" -> "misty-shiny-gyarados" */
+function slugify(str = '') {
+  return String(str)
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function uniqueSlug(slug, used) {
+  let candidate = slug;
+  for (let n = 2; used.has(candidate); n++) candidate = `${slug}-${n}`;
+  used.add(candidate);
+  return candidate;
+}
+
+function toPrice(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
+const priceFormatter = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' });
+
+/** 299.95 -> "$299.95 CAD"; '' when there's no price. */
+function formatPrice(price) {
+  return typeof price === 'number' ? `${priceFormatter.format(price)} CAD` : '';
+}

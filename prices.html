@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Otaku Shelf</title>
+    <meta
+      name="description"
+      content="Otaku Shelf is a Canadian studio making 3D-printed, hand-painted anime, gaming, and pop-culture collectibles, that are all made to order."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32.png"
+    />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+  </head>
+  <body id="top">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="index.html">
+          <img src="assets/icons/favicon-32.png" alt="" class="logo-icon" />
+          <span class="logo-text">
+            <span class="logo-name">Otaku <span>Shelf</span></span>
+            <span class="logo-jp" lang="ja">オタクシェルフ</span>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="index.html" aria-current="page">Gallery</a>
+          <a href="prices.html">Features & Pricing</a>
+          <a href="about.html">About Us</a>
+          <a class="nav-cta" href="ordering.html">How to order</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>Price list</h1>
+      <p>
+        Every piece is made to order and finished by hand in our studio. Prices
+        are in Canadian dollars and don’t include shipping.
+      </p>
+    </section>
+
+    <main class="price-wrap">
+      <div class="price-tools">
+        <label class="visually-hidden" for="priceSearch"
+          >Search the price list</label
+        >
+        <input
+          class="price-search"
+          id="priceSearch"
+          type="search"
+          placeholder="Search by character or series…"
+          autocomplete="off"
+        />
+        <p class="price-count" id="priceCount" aria-live="polite"></p>
+      </div>
+
+      <div id="priceList">
+        <!-- Filled in by js/prices.js from data/figures.json -->
+        <p class="price-empty">Loading prices…</p>
+      </div>
+
+      <p class="price-footnote">
+        Want a different size or a custom piece?
+        <a href="ordering.html#custom">Ask us about custom work →</a><br />
+        Very large or unusually shaped pieces may need a separate shipping
+        quote.
+      </p>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="logo" href="index.html">
+            <img src="assets/icons/favicon-32.png" alt="" class="logo-icon" />
+            Otaku <span>Shelf</span>
+          </a>
+          <p class="footer-jp" lang="ja">オタクシェルフ</p>
+          <p class="footer-tagline">
+            Personalized, hand-painted anime, gaming, and pop-culture
+            collectibles, created with care and made to order.
+          </p>
+        </div>
+
+        <nav class="footer-col" aria-label="Footer">
+          <h2>Explore</h2>
+          <ul>
+            <li><a href="index.html">Gallery</a></li>
+            <li><a href="prices.html">Price list</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="ordering.html">How to order</a></li>
+            <li><a href="ordering.html#care">Caring for your figure</a></li>
+            <li><a href="ordering.html#faq">FAQ</a></li>
+          </ul>
+        </nav>
+
+        <!--
+        EDIT ME: keep these in sync with the contact details on ordering.html.
+      -->
+        <div class="footer-col">
+          <h2>Contact</h2>
+          <ul>
+            <li>
+              <a
+                href="https://www.etsy.com/shop/YOUR-SHOP-NAME"
+                target="_blank"
+                rel="noopener"
+                >Etsy shop</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/yourhandle"
+                target="_blank"
+                rel="noopener"
+                >Instagram</a
+              >
+            </li>
+          </ul>
+          <h2></h2>
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="terms.html">Terms of service</a></li>
+            <li><a href="policies.html">Policies</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Otaku Shelf. All rights reserved.</span>
+        <span class="footer-bottom-links">
+          <a href="admin/">Admin</a>
+          <a href="#top">Back to top ↑</a>
+        </span>
+      </div>
+    </footer>
+
+    <script src="js/compare.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/compare-ui.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

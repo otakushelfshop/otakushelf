@@ -1,12 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Otaku Shelf — About</title>
+    <title>Otaku Shelf</title>
+    <meta
+      name="description"
+      content="Otaku Shelf is a Canadian studio making 3D-printed, hand-painted anime, gaming, and pop-culture collectibles, that are all made to order."
+    />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32.png"
+    />
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
   </head>
   <body id="top">
@@ -20,73 +29,192 @@
           </span>
         </a>
         <nav class="site-nav" aria-label="Main">
-          <a href="index.html">Gallery</a>
-          <a href="about.html" aria-current="page">About</a>
-          <a class="nav-cta" href="about.html#ordering">Order a figure</a>
+          <a href="index.html" aria-current="page">Gallery</a>
+          <a href="prices.html">Features & Pricing</a>
+          <a href="about.html">About Us</a>
+          <a class="nav-cta" href="ordering.html">How to order</a>
         </nav>
       </div>
     </header>
 
     <section class="hero">
-      <h1>About the Shelf</h1>
+      <h1>About Otaku Shelf</h1>
       <p>
-        Who's behind the collection, how to get in touch, and how to order a
-        figure of your own.
+        We are a small Canadian-based studio that turns digital sculptures into
+        hand-painted collectibles you will be proud to add to your collection.
       </p>
     </section>
 
+    <nav class="page-nav" aria-label="On this page">
+      <a href="#story">Our Origin</a>
+      <a href="#what-we-make">What We Make</a>
+      <a href="#process">How a Figure is Made</a>
+      <a href="#painting">Painting</a>
+      <a href="#tools">Tools &amp; Materials</a>
+    </nav>
+
     <main class="about-wrap">
       <!--
-      EDIT ME: replace the placeholder contact details below with the real
-      ones before this goes live.
+      EDIT ME: add the founding story and how many years the studio has been
+      running once the client sends them.
     -->
-      <section class="about-card">
-        <h2>Get in touch</h2>
+      <section class="about-card" id="story">
+        <h2>Our Origin</h2>
         <p>
-          Questions about a piece, a commission, or anything else on the shelf?
-          Reach out any of these ways:
+          What had originally begun as our own passion for collecting, creating,
+          and bringing beloved pop-culture characters to life in our collection
+          has grown into a creative business that focuses on making unique
+          display pieces for fellow fans and fellow collectors. We are the
+          biggest fans of the sculptures we make, so turning a great digital
+          sculpture into something you can actually put on your shelf never gets
+          old to us.
         </p>
-        <ul class="contact-list">
-          <li>
-            <strong>Email:</strong>
-            <a href="mailto:you@example.com">you@example.com</a>
-          </li>
-          <li>
-            <strong>Instagram:</strong>
-            <a
-              href="https://instagram.com/yourhandle"
-              target="_blank"
-              rel="noopener"
-              >@yourhandle</a
-            >
-          </li>
-          <li>
-            <strong>Twitter / X:</strong>
-            <a href="https://x.com/yourhandle" target="_blank" rel="noopener"
-              >@yourhandle</a
-            >
-          </li>
-        </ul>
+        <p class="philosophy-label">
+          Our work and creation philosophy is simple:
+        </p>
+        <blockquote class="philosophy">
+          <p>
+            We build collectibles that should be more than something you own.
+            They should be something you are proud to display on your shelf.
+          </p>
+        </blockquote>
       </section>
 
-      <!--
-      EDIT ME: point this at your real storefront (Etsy, Shopify, a
-      commission form, etc.) and describe how ordering actually works.
-    -->
-      <section class="about-card" id="ordering">
-        <h2>Ordering a figure</h2>
+      <section class="about-card" id="what-we-make">
+        <h2>What We Make</h2>
         <p>
-          This gallery is a showcase, not a checkout — pieces shown here are
-          ordered through our shop on an external site. Availability, pricing,
-          shipping, and lead times are all listed there.
+          We mostly make anime, and video-game figures, along with fantasy,
+          sci-fi, and other pop-culture pieces. Whether you are looking for an
+          iconic anime character, a favourite video-game hero, or villain, or a
+          striking centrepiece for your collection, our goal is to make that
+          character as realistic and appealing as possible.
         </p>
-        <a
-          class="btn"
-          href="https://your-shop-url.example.com"
-          target="_blank"
-          rel="noopener"
-          >Visit the shop →</a
-        >
+        <p>
+          We care about clean prints, smooth finishes, expressive paintwork, and
+          figures that look great on display. We are open to custom ideas, and
+          many pieces can be made in different sizes depending on the model. For
+          more information about custom work, please see
+          <a href="ordering.html#custom">Custom Work</a>.
+        </p>
+        <p>
+          We are also happy to discuss R-rated and Mature themes, we evaluate
+          each case by case and have zero tolerance for hateful, racist, sexist,
+          or any other form of discriminatory content.
+        </p>
+      </section>
+
+      <section class="about-card" id="process">
+        <h2>How a Figure is Made</h2>
+        <p>
+          Every figure is a labour of detail and intention. We combine modern
+          resin and filament 3D printing with traditional model-making and
+          airbrushing techniques, and each piece gets individual attention from
+          start to finish. Following these steps below to create a figure
+          ensures that the final product is something you will be proud to
+          display on your shelf.
+        </p>
+        <ol class="steps">
+          <li>
+            <h3>Planning, Preparation, and Design</h3>
+            <p>
+              In this beginning stage, we choose the sculpture and work out the
+              size and how to split the figure into parts to print, fixing 3D
+              model files.
+            </p>
+          </li>
+          <li>
+            <h3>Printing</h3>
+            <p>
+              Next, we prepare the files, supports, and print settings, to
+              assure that the end result is consistent and high-quality. Each
+              part is printed in resin or filament depending on the design.
+            </p>
+          </li>
+          <li>
+            <h3>Cleaning Up</h3>
+            <p>
+              To clean up any defects, resin parts are washed and cured. Any
+              filament and resin supports are removed, and everything is put
+              through quality control. After assuring each piece is perfect, the
+              surfaces are tidied.
+            </p>
+          </li>
+          <li>
+            <h3>Prep</h3>
+            <p>
+              From here, all of the figures parts are sanded, filled, and primed
+              until they are ready for paint. This is a crucial step to ensure
+              that the paint adheres well and that the final result is smooth
+              and clean.
+            </p>
+          </li>
+          <li>
+            <h3>Painting</h3>
+            <p>
+              Painting starts with a clean, primed surface. We build up the main
+              colours with the airbrush, then work in shadows, highlights,
+              textures, and small details with brushes. Depending on the figure,
+              we finish with matte, satin, or gloss effects wherever they suit
+              the piece.
+            </p>
+          </li>
+          <li>
+            <h3>Finish</h3>
+            <p>
+              To assure the long-term durability of the figure, we apply the
+              right finish, assemble the figure, inspect it, and pack it
+              carefully for shipping.
+            </p>
+          </li>
+        </ol>
+        <p>
+          On average, most orders take about two weeks from start to finish;
+          larger or more detailed projects can take longer. Shipping times vary
+          depending on the destination, and we will provide an estimated
+          delivery date when you place your order.
+        </p>
+      </section>
+
+      <section class="about-card" id="tools">
+        <h2>Tools &amp; materials</h2>
+        <dl class="spec-list">
+          <div>
+            <dt>Resin printers</dt>
+            <dd>Anycubic Photon Mono M5s Pro and Anycubic Photon M3</dd>
+          </div>
+          <div>
+            <dt>Filament printer</dt>
+            <dd>Creality K2 Plus</dd>
+          </div>
+          <div>
+            <dt>Slicing software</dt>
+            <dd>Lychee Slicer and Creality’s slicing software</dd>
+          </div>
+          <div>
+            <dt>Airbrush</dt>
+            <dd>Iwata Revolution</dd>
+          </div>
+          <div>
+            <dt>Paints &amp; brushes</dt>
+            <dd>Vallejo acrylic paints and fine detail brushes</dd>
+          </div>
+          <div>
+            <dt>Prep &amp; finishing</dt>
+            <dd>
+              Sandpaper, filler primer, and matte, satin, or gloss finishing
+              coats, chosen to suit each piece
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="about-card cta-card">
+        <h2>Ready to bring a character home?</h2>
+        <p>Browse the price list, or get in touch about a custom piece.</p>
+        <div class="card-actions">
+          <a class="btn" href="prices.html">See the price list</a>
+          <a class="btn secondary" href="ordering.html">How to order</a>
+        </div>
       </section>
     </main>
 
@@ -99,7 +227,8 @@
           </a>
           <p class="footer-jp" lang="ja">オタクシェルフ</p>
           <p class="footer-tagline">
-            A digital display case for a collection of figures and statues.
+            Personalized, hand-painted anime, gaming, and pop-culture
+            collectibles, created with care and made to order.
           </p>
         </div>
 
@@ -107,28 +236,42 @@
           <h2>Explore</h2>
           <ul>
             <li><a href="index.html">Gallery</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="about.html#ordering">Ordering a figure</a></li>
+            <li><a href="prices.html">Price list</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="ordering.html">How to order</a></li>
+            <li><a href="ordering.html#care">Caring for your figure</a></li>
+            <li><a href="ordering.html#faq">FAQ</a></li>
           </ul>
         </nav>
 
         <!--
-        EDIT ME: keep these in sync with the contact details on about.html.
+        EDIT ME: keep these in sync with the contact details on ordering.html.
       -->
         <div class="footer-col">
           <h2>Contact</h2>
           <ul>
-            <li><a href="mailto:you@example.com">Email</a></li>
             <li>
-              <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener"
+              <a
+                href="https://www.etsy.com/shop/YOUR-SHOP-NAME"
+                target="_blank"
+                rel="noopener"
+                >Etsy shop</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/yourhandle"
+                target="_blank"
+                rel="noopener"
                 >Instagram</a
               >
             </li>
-            <li>
-              <a href="https://x.com/yourhandle" target="_blank" rel="noopener"
-                >Twitter / X</a
-              >
-            </li>
+          </ul>
+          <h2></h2>
+          <h2>Legal</h2>
+          <ul>
+            <li><a href="terms.html">Terms of service</a></li>
+            <li><a href="policies.html">Policies</a></li>
           </ul>
         </div>
       </div>
@@ -141,5 +284,10 @@
         </span>
       </div>
     </footer>
+
+    <script src="js/compare.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/compare-ui.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

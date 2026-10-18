@@ -3,6 +3,10 @@
   --------
   Renders the figure gallery and drives the details modal: a photo viewer
   (multiple photos per figure, click-to-zoom with panning) plus details.
+
+  Only pieces with a main photo appear in the gallery; pieces without one
+  are still listed on prices.html. Each open piece is reflected in the URL
+  (index.html#bunny-akali), so a single statue can be linked to directly.
 */
 
 const galleryEl = document.getElementById('gallery');
@@ -15,6 +19,7 @@ const featuredSeries = document.getElementById('featuredSeries');
 const featuredName = document.getElementById('featuredName');
 const featuredSculptor = document.getElementById('featuredSculptor');
 const featuredScale = document.getElementById('featuredScale');
+const featuredPrice = document.getElementById('featuredPrice');
 const featuredSize = document.getElementById('featuredSize');
 const featuredCompare = document.getElementById('featuredCompare');
 const featuredDescription = document.getElementById('featuredDescription');
@@ -32,6 +37,9 @@ const modalSeries = document.getElementById('modalSeries');
 const modalTitle = document.getElementById('modalTitle');
 const modalSculptor = document.getElementById('modalSculptor');
 const modalScale = document.getElementById('modalScale');
+const modalPrice = document.getElementById('modalPrice');
+const modalOrder = document.getElementById('modalOrder');
+const modalNote = document.getElementById('modalNote');
 const modalSize = document.getElementById('modalSize');
 const modalCompare = document.getElementById('modalCompare');
 const modalDate = document.getElementById('modalDate');
@@ -42,9 +50,11 @@ let allFigures = [];
 let featuredFigure = null;
 let openFigure = null;
 
-/** Show/hide a "Size" row (its <dt> is the element just before the <dd>). */
-function setSizeRow(dd, text) {
-  dd.textContent = text;
+const pageTitle = document.title;
+
+/** Fill a details row, hiding it (and its <dt>, the element just before) when empty. */
+function setRow(dd, text) {
+  dd.textContent = text || '';
   dd.hidden = !text;
   if (dd.previousElementSibling) dd.previousElementSibling.hidden = !text;
 }
@@ -58,12 +68,12 @@ function refreshSummaries() {
     node.hidden = !line;
   });
   if (featuredFigure) {
-    setSizeRow(featuredSize, CompareUI.sizeText(featuredFigure));
+    setRow(featuredSize, CompareUI.sizeText(featuredFigure));
     const sentence = CompareUI.comparison(featuredFigure);
     featuredCompare.textContent = sentence ? `That’s ${sentence}.` : '';
     featuredCompare.hidden = !sentence;
   }
-  if (openFigure) setSizeRow(modalSize, CompareUI.sizeText(openFigure));
+  if (openFigure) setRow(modalSize, CompareUI.sizeText(openFigure));
 }
 
 function escapeHtml(str = '') {
@@ -116,8 +126,9 @@ function renderGallery(figures) {
         <div class="card-body">
           <div class="series">${escapeHtml(fig.series || '')}</div>
           <h3>${escapeHtml(fig.name)}</h3>
-          <div class="meta-line">${escapeHtml(fig.scale || '')}</div>
+          ${fig.scale ? `<div class="meta-line">${escapeHtml(fig.scale)}</div>` : ''}
           <div class="compare-line" data-compare-for="${escapeHtml(fig.id)}" hidden></div>
+          ${fig.price !== null ? `<div class="price-line">${escapeHtml(formatPrice(fig.price))}</div>` : ''}
         </div>
       </article>`;
       }
@@ -136,8 +147,9 @@ function renderFeatured(fig, hasOthers) {
   featuredImage.alt = fig.name;
   featuredSeries.textContent = fig.series || '';
   featuredName.textContent = fig.name;
-  featuredSculptor.textContent = fig.sculptor || 'Unknown';
-  featuredScale.textContent = fig.scale || 'Unknown';
+  setRow(featuredSculptor, fig.sculptor);
+  setRow(featuredScale, fig.scale);
+  setRow(featuredPrice, formatPrice(fig.price));
   featuredDescription.textContent = fig.description || 'No description added yet.';
   featuredPhotoCount.textContent = photoCountLabel(photosOf(fig).length);
   featuredPhotoCount.hidden = !featuredPhotoCount.textContent;
@@ -207,6 +219,37 @@ function setZoomOrigin(e) {
   modalImage.style.transformOrigin = `${x}% ${y}%`;
 }
 
+/**
+ * The modal's call to action: the piece's own Etsy listing when there is
+ * one, otherwise the ordering page (priced pieces) or the contact section
+ * (pieces that aren't on the price list).
+ */
+function setOrderLink(fig) {
+  modalNote.hidden = fig.price === null;
+  if (fig.etsy_url) {
+    modalOrder.href = fig.etsy_url;
+    modalOrder.textContent = 'Order on Etsy →';
+    modalOrder.target = '_blank';
+    modalOrder.rel = 'noopener';
+    return;
+  }
+  modalOrder.removeAttribute('target');
+  modalOrder.removeAttribute('rel');
+  if (fig.price !== null) {
+    modalOrder.href = 'ordering.html#order';
+    modalOrder.textContent = 'How to order →';
+  } else {
+    modalOrder.href = 'ordering.html#contact';
+    modalOrder.textContent = 'Ask about this piece →';
+  }
+}
+
+/** Keep the address bar in sync with the open piece, without adding history entries. */
+function setHash(slug) {
+  const url = slug ? `#${slug}` : `${location.pathname}${location.search}`;
+  history.replaceState(null, '', url);
+}
+
 function openModal(fig) {
   currentPhotos = photosOf(fig);
   currentName = fig.name;
@@ -214,17 +257,22 @@ function openModal(fig) {
   showPhoto(0);
   modalSeries.textContent = fig.series || '';
   modalTitle.textContent = fig.name;
-  modalSculptor.textContent = fig.sculptor || 'Unknown';
-  modalScale.textContent = fig.scale || 'Unknown';
-  modalDate.textContent = formatDate(fig.dateAdded);
+  setRow(modalSculptor, fig.sculptor);
+  setRow(modalScale, fig.scale);
+  setRow(modalPrice, formatPrice(fig.price));
+  setRow(modalDate, fig.dateAdded ? formatDate(fig.dateAdded) : '');
   modalDescription.textContent = fig.description || 'No description added yet.';
+  setOrderLink(fig);
 
   openFigure = fig;
-  setSizeRow(modalSize, CompareUI.sizeText(fig));
+  setRow(modalSize, CompareUI.sizeText(fig));
   CompareUI.mount(modalCompare, fig);
 
   modalOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  document.title = `${fig.name} — ${pageTitle}`;
+  setHash(fig.slug);
+  modalClose.focus();
 }
 
 function closeModal() {
@@ -233,6 +281,16 @@ function closeModal() {
   document.body.style.overflow = '';
   openFigure = null;
   CompareUI.unmount();
+  document.title = pageTitle;
+  setHash('');
+}
+
+/** Open the piece named in the URL hash (e.g. arriving from the price list). */
+function openFromHash(figures) {
+  const slug = decodeURIComponent(location.hash.slice(1));
+  if (!slug) return;
+  const fig = figures.find((f) => f.slug === slug);
+  if (fig) openModal(fig);
 }
 
 async function init() {
@@ -252,6 +310,8 @@ async function init() {
     return;
   }
 
+  // The gallery only shows pieces that have a photo; the rest live on the price list.
+  figures = figures.filter((f) => f.image);
   allFigures = figures;
   const featured = figures.find((f) => f.featured);
   featuredFigure = featured || null;
@@ -293,6 +353,9 @@ async function init() {
     const fig = rest.find((f) => f.id === card.dataset.id);
     if (fig) openModal(fig);
   });
+
+  openFromHash(figures);
+  window.addEventListener('hashchange', () => openFromHash(figures));
 }
 
 // Click (or tap) the photo to zoom in at that spot / zoom back out. While

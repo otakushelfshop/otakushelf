@@ -35,7 +35,7 @@ media_libraries:
 collections:
   - name: shelf
     label: Shelf
-    description: The figures shown in the gallery.
+    description: The pieces shown in the gallery and on the price list.
     editor:
       preview: false
     files:
@@ -69,6 +69,28 @@ collections:
                 widget: string
                 required: false
                 hint: e.g. 1/7 Scale, Nendoroid, Non-scale
+              - name: price
+                label: Price (CAD)
+                widget: number
+                value_type: float
+                min: 0
+                step: 0.01
+                required: false
+                hint: In Canadian dollars, without shipping (e.g. 299.95). Leave empty to keep the piece off the price list.
+              - name: category
+                label: Type
+                widget: select
+                options:
+                  - { label: Statue / sculpture, value: statue }
+                  - { label: Hobby accessory, value: accessory }
+                default: statue
+                required: false
+                hint: Groups the piece on the price list.
+              - name: etsy_url
+                label: Etsy listing link
+                widget: string
+                required: false
+                hint: Optional. The full link to this piece's Etsy listing. Adds an "Order on Etsy" button to its details; without it, visitors are sent to the How to order page.
               - name: height_mm
                 label: Height (mm)
                 widget: number
@@ -108,12 +130,18 @@ collections:
                 format: YYYY-MM-DD
                 time_format: false
                 default: "{{now}}"
+                required: false
               - name: description
                 label: Description
                 widget: text
                 required: false
-                hint: Notes, backstory, condition, where you got it, etc.
-              - { name: image, label: Main photo, widget: image, choose_url: false }
+                hint: One or two sentences for visitors. Shown in the gallery details and on the price list.
+              - name: image
+                label: Main photo
+                widget: image
+                choose_url: false
+                required: false
+                hint: Pieces only appear in the gallery once they have a main photo. Without one, they still show on the price list.
               - name: photos
                 label: More photos
                 label_singular: Photo
