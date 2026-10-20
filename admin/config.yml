@@ -6,7 +6,7 @@
 
 backend:
   name: github
-  repo: CJWiebe-Portfolio/okakushelf
+  repo: okakushelfshop/okakushelf
   branch: main
   base_url: https://sveltia-cms-auth.cygnus-wiebe.workers.dev
   commit_messages:
