@@ -17,7 +17,7 @@
       "description": "A horror collectible inspired by The Last of Us: an infected Clicker mid-lurch, fungal growth splitting its head open, on a spore-covered base.",
       "image": "assets/statues/web/20260306_135423.jpg",
       "photos": [],
-      "featured": false
+      "featured": true
     },
     {
       "name": "Yidhari",
@@ -207,7 +207,7 @@
       "description": "Ahri reclining on a lotus pond, nine blue tails fanned out around her and a spirit orb in her hand.",
       "image": "assets/statues/web/20260810_211413.jpg",
       "photos": [],
-      "featured": true
+      "featured": false
     },
     {
       "name": "Ariel-Inspired Mermaid",
