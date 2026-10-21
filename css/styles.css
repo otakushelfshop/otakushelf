@@ -26,15 +26,20 @@
 
   /* Roles */
   --bg: var(--black);
-  --bg-elevated: var(--mono-4);
-  --card-bg: var(--shade-4);
+  --bg-elevated: #1b1314;
+  /* Near-black cards with a hint of red, so photos and text stand out. */
+  --card-bg: rgba(22, 14, 15, 0.94);
+  --card-bg-soft: rgba(255, 255, 255, 0.035);
   --accent: var(--red);
+  --accent-text: #ff4d5a; /* red that stays readable on dark backgrounds */
   --accent-soft: rgba(218, 1, 19, 0.35);
   --danger: var(--mono-1);
   --overlay: rgba(4, 4, 5, 0.85);
   --text: var(--white);
-  --text-dim: var(--white-dim);
-  --border: var(--mono-4);
+  --text-dim: #c9c1c2;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
   --radius: 14px;
   --max-width: 1200px;
   --font-heading: "Zen Maru Gothic", "Noto Sans JP", system-ui, sans-serif;
@@ -54,6 +59,13 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
 }
 
 h1,
@@ -76,10 +88,13 @@ body {
   min-height: 100vh;
   background-image:
     radial-gradient(circle at 20% 0%, rgba(218, 1, 19, 0.08), transparent 45%),
-    radial-gradient(circle at 80% 20%, rgba(218, 1, 19, 0.25), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(218, 1, 19, 0.2), transparent 50%),
+    /* Dims the pattern so it sits behind the content instead of competing with it. */
+    linear-gradient(rgba(4, 4, 5, 0.62), rgba(4, 4, 5, 0.62)),
     url("../assets/background/otaku-shelf-bg.svg");
-  background-repeat: no-repeat, no-repeat, repeat;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-size:
+    auto,
     auto,
     auto,
     800px 800px;
@@ -87,7 +102,7 @@ body {
 }
 
 a {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* ---------- Header ---------- */
@@ -266,12 +281,17 @@ a {
 }
 
 .hero .eyebrow {
-  margin: 0 0 0.75rem;
-  font-size: 0.78rem;
+  display: inline-block;
+  margin: 0 0 1rem;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text);
+  background: rgba(4, 4, 5, 0.55);
+  border: 1px solid var(--accent-soft);
+  border-radius: 999px;
 }
 
 .hero-actions {
@@ -284,20 +304,31 @@ a {
 
 .hero p {
   color: var(--text-dim);
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  text-wrap: pretty;
 }
 
 /* ---------- Featured figure ---------- */
 
 .section-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   max-width: var(--max-width);
-  margin: 0 auto 0.9rem;
+  margin: 0 auto 1rem;
   padding: 0 2rem;
   font-size: 0.85rem;
-  color: var(--text-dim);
+  color: var(--text);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+}
+
+.section-heading::before {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  background: var(--accent);
 }
 
 .featured {
@@ -320,6 +351,7 @@ a {
   border-radius: var(--radius);
   overflow: hidden;
   cursor: pointer;
+  box-shadow: var(--shadow);
   transition: border-color 0.25s ease;
 }
 
@@ -342,14 +374,14 @@ a {
 }
 
 .featured-details {
-  padding: 2rem;
+  padding: 2.25rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .featured-details .series {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 0.82rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -357,7 +389,7 @@ a {
 }
 
 .featured-details h3 {
-  font-size: 1.7rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
   margin: 0.35rem 0 1rem;
 }
 
@@ -385,9 +417,10 @@ a {
 
 .featured-details .view-hint {
   display: inline-block;
-  margin-top: 1.1rem;
-  font-size: 0.85rem;
-  color: var(--accent);
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-text);
 }
 
 @media (max-width: 720px) {
@@ -424,6 +457,7 @@ a {
 .figure-card:focus-visible {
   transform: translateY(-6px);
   border-color: var(--accent-soft);
+  box-shadow: var(--shadow);
 }
 
 /* the spotlight glow that tracks the cursor */
@@ -494,7 +528,7 @@ a {
 }
 
 .figure-card .series {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 0.82rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -502,14 +536,17 @@ a {
 }
 
 .figure-card .meta-line {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  font-size: 0.82rem;
   color: var(--text-dim);
 }
 
 .figure-card .price-line {
-  margin-top: 0.6rem;
-  font-size: 0.95rem;
+  margin-top: 0.75rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--text);
 }
@@ -549,9 +586,11 @@ a {
   border-radius: var(--radius);
   max-width: 960px;
   width: 100%;
-  max-height: 90vh;
+  /* A fixed height lets the details column scroll and keeps the photo centred. */
+  height: min(90vh, 820px);
   display: grid;
   grid-template-columns: 1.1fr 1fr;
+  grid-template-rows: minmax(0, 1fr);
   overflow: hidden;
   box-shadow: 0 30px 80px rgba(4, 4, 5, 0.6);
 }
@@ -699,7 +738,7 @@ a {
 }
 
 .modal-details .series {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 0.85rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -772,6 +811,8 @@ a {
 @media (max-width: 720px) {
   .modal {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
     max-height: 95vh;
     /* The whole card scrolls on phones, so the size-comparison panel is reachable. */
     overflow-y: auto;
@@ -1076,7 +1117,7 @@ a {
 .site-footer {
   position: relative;
   margin-top: 4rem;
-  background: linear-gradient(180deg, var(--shade-4) 0%, var(--black) 100%);
+  background: linear-gradient(180deg, #160d0e 0%, var(--black) 100%);
   color: var(--text-dim);
   font-size: 0.9rem;
 }
@@ -1137,6 +1178,13 @@ a {
 
 .footer-col h2 {
   margin: 0 0 0.9rem;
+}
+
+.footer-col ul + h2 {
+  margin-top: 1.75rem;
+}
+
+.footer-col h2 {
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1167,7 +1215,7 @@ a {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 1.25rem 1.5rem 1.5rem;
-  border-top: 1px solid var(--mono-3);
+  border-top: 1px solid var(--border);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -1213,8 +1261,8 @@ a {
 }
 
 .btn.secondary {
-  background: transparent;
-  border-color: var(--mono-2);
+  background: rgba(4, 4, 5, 0.45);
+  border-color: var(--border-strong);
   color: var(--text);
 }
 
@@ -1242,16 +1290,41 @@ a {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.75rem;
+  padding: 2rem;
+  box-shadow: var(--shadow);
 }
 
 .about-card h2 {
-  margin-top: 0;
+  margin: 0 0 1rem;
+  padding-bottom: 0.7rem;
+  font-size: 1.45rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+/* Short red underline under each card heading. */
+.about-card h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--accent);
+}
+
+.cta-card h2::after {
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .about-card p {
   color: var(--text-dim);
-  line-height: 1.6;
+  line-height: 1.7;
+}
+
+.about-card > :last-child {
+  margin-bottom: 0;
 }
 
 .contact-list {
@@ -1296,7 +1369,8 @@ a {
   color: var(--text-dim);
   text-decoration: none;
   font-size: 0.85rem;
-  border: 1px solid var(--border);
+  background: rgba(4, 4, 5, 0.6);
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
   padding: 0.35rem 0.85rem;
   transition:
@@ -1318,7 +1392,11 @@ a {
 .about-card ul,
 .about-card ol {
   color: var(--text-dim);
-  line-height: 1.6;
+  line-height: 1.7;
+}
+
+.about-card ul:not([class]) li + li {
+  margin-top: 0.35rem;
 }
 
 .about-card li strong {
@@ -1398,8 +1476,12 @@ a {
 .home-band {
   max-width: 760px;
   margin: 0 auto;
-  padding: 1rem 2rem 0;
+  padding: 2.5rem 2rem;
   text-align: center;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .home-band > p {
@@ -1510,8 +1592,9 @@ a {
   flex-direction: column;
   gap: 0.25rem;
   padding: 0.9rem 1rem;
-  background: rgba(4, 4, 5, 0.35);
-  border: 1px solid var(--mono-2);
+  background: var(--card-bg-soft);
+  border: 1px solid var(--border-strong);
+  border-left: 3px solid var(--accent);
   border-radius: 10px;
 }
 
@@ -1638,7 +1721,7 @@ a {
   max-width: 380px;
   background: var(--card-bg);
   color: var(--text);
-  border: 1px solid var(--mono-2);
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
   padding: 0.6rem 1.1rem;
   font: inherit;
@@ -1668,7 +1751,7 @@ a {
 .price-group h2 {
   margin: 0 0 0.9rem;
   font-size: 0.85rem;
-  color: var(--text-dim);
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -1690,6 +1773,11 @@ a {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  transition: border-color 0.2s ease;
+}
+
+.price-item:hover {
+  border-color: var(--accent-soft);
 }
 
 .price-thumb {
@@ -1729,7 +1817,7 @@ a {
 }
 
 .price-info .series {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -1842,7 +1930,36 @@ a {
     padding-right: 1rem;
   }
   .home-band {
-    padding: 1rem 1rem 0;
+    margin: 0 1rem;
+    padding: 2rem 1.25rem;
+  }
+  .gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+  .figure-card .card-body {
+    padding: 0.75rem 0.8rem 0.9rem;
+  }
+  .figure-card h3 {
+    font-size: 0.95rem;
+  }
+  .figure-card .series,
+  .figure-card .meta-line,
+  .figure-card .compare-line {
+    font-size: 0.72rem;
+  }
+  .hero {
+    padding: 2.5rem 1rem 2rem;
+  }
+  .hero .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+  .hero-actions .btn {
+    min-width: 13rem;
+  }
+  .featured-details {
+    padding: 1.5rem;
   }
 }
 
@@ -1947,7 +2064,7 @@ a {
 
 .page-nav a .icon {
   font-size: 1.1em;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .site-footer .icon {

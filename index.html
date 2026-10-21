@@ -1,243 +1,134 @@
-<!doctype html>
-<html lang="en-CA">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Otaku Shelf</title>
-    <meta
-      name="description"
-      content="Otaku Shelf is a Canadian studio making 3D-printed, hand-painted anime, gaming, and pop-culture collectibles, that are all made to order."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/icons/favicon-32.png"
-    />
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
-  </head>
-  <body id="top">
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="logo" href="index.html">
-          <img src="assets/icons/favicon-32.png" alt="" class="logo-icon" />
-          <span class="logo-text">
-            <span class="logo-name">Otaku <span>Shelf</span></span>
-            <span class="logo-jp" lang="ja">オタクシェルフ</span>
-          </span>
-        </a>
-        <nav class="site-nav" aria-label="Main">
-          <a href="index.html" aria-current="page"><span class="icon" aria-hidden="true">photo_library</span>Gallery</a>
-          <a href="prices.html"><span class="icon" aria-hidden="true">sell</span>Features & Pricing</a>
-          <a href="about.html"><span class="icon" aria-hidden="true">info</span>About Us</a>
-          <a class="nav-cta" href="ordering.html"><span class="icon" aria-hidden="true">shopping_bag</span>How to order</a>
-        </nav>
-      </div>
-    </header>
+---
+layout: default
+scripts: [js/compare.js, js/data.js, js/compare-ui.js, js/main.js]
+---
 
-    <section class="hero">
-      <p class="eyebrow">Personalized · Hand-painted · Made in Canada</p>
-      <h1>
-        Providing unique collectibles that you will be proud to display on your
-        shelf!
-      </h1>
-      <p>
-        Otaku Shelf is based in Canada, and specializes in hand-painted anime,
-        gaming, and pop-culture collectibles. Browse our portfolio of finished
-        pieces below by clicking any figure for a closer look, full details, and
-        zoomable photos.
-      </p>
-      <div class="hero-actions">
-        <a class="btn" href="prices.html"><span class="icon" aria-hidden="true">sell</span>What is offered?</a>
-        <a class="btn secondary" href="ordering.html"><span class="icon" aria-hidden="true">shopping_bag</span>How ordering works?</a>
-      </div>
-    </section>
+<section class="hero">
+  <p class="eyebrow">Made to order · Hand-painted · Made in Canada</p>
+  <h1>Unique collectibles you’ll be proud to display on your shelf</h1>
+  <p>
+    Otaku Shelf is a Canadian studio specializing in hand-painted anime, gaming,
+    and pop-culture collectibles. Browse our finished pieces below, and select
+    any figure for a closer look, full details, and zoomable photos.
+  </p>
+  <div class="hero-actions">
+    <a class="btn" href="prices.html"
+      ><span class="icon" aria-hidden="true">sell</span>See prices</a
+    >
+    <a class="btn secondary" href="ordering.html"
+      ><span class="icon" aria-hidden="true">shopping_bag</span>How ordering
+      works</a
+    >
+  </div>
+</section>
 
-    <!-- Featured piece, set from the admin page. Hidden when nothing is marked featured. -->
-    <section class="featured" id="featuredSection" style="display: none">
-      <h2 class="section-heading">Featured piece</h2>
-      <article class="featured-card" id="featuredCard" tabindex="0">
-        <div class="featured-image">
-          <img id="featuredImage" src="" alt="" />
-          <span class="photo-count" id="featuredPhotoCount" hidden></span>
-        </div>
-        <div class="featured-details">
-          <div class="series" id="featuredSeries"></div>
-          <h3 id="featuredName"></h3>
-          <dl>
-            <dt>Sculptor</dt>
-            <dd id="featuredSculptor"></dd>
-            <dt>Scale</dt>
-            <dd id="featuredScale"></dd>
-            <dt class="size-row">Size</dt>
-            <dd class="size-row" id="featuredSize"></dd>
-            <dt>Price</dt>
-            <dd id="featuredPrice"></dd>
-          </dl>
-          <p class="compare-line" id="featuredCompare"></p>
-          <p class="description" id="featuredDescription"></p>
-          <span class="view-hint">Click for full details &amp; zoom →</span>
-        </div>
-      </article>
-    </section>
-
-    <h2 class="section-heading" id="restHeading" style="display: none">
-      More from the shelf
-    </h2>
-
-    <main class="gallery" id="gallery">
-      <!-- Figure cards are injected here by js/main.js -->
-      <p class="empty-state">Loading collection…</p>
-    </main>
-
-    <section class="home-band" aria-labelledby="philosophyHeading">
-      <h2 class="visually-hidden" id="philosophyHeading">Our philosophy</h2>
-      <blockquote class="philosophy">
-        <p>
-          A collection should be more than something you own, but something that
-          you are proud to display!
-        </p>
-      </blockquote>
-      <p>
-        Every figure is a labour of detail and passion: printed, sanded, primed,
-        airbrushed, hand-painted, assembled, and carefully shipped with
-        individual attention.
-        <a href="about.html#process">See how a figure is made →</a>
-      </p>
-    </section>
-
-    <!-- Modal: zoom + details -->
-    <div class="modal-overlay" id="modalOverlay">
-      <div
-        class="modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modalTitle"
-      >
-        <button class="modal-close" id="modalClose" aria-label="Close">
-          <span class="icon" aria-hidden="true">close</span>
-        </button>
-        <div class="modal-media">
-          <div class="modal-image" id="modalImageWrap">
-            <img id="modalImage" src="" alt="" draggable="false" />
-            <button
-              class="photo-nav prev"
-              id="photoPrev"
-              aria-label="Previous photo"
-            >
-              <span class="icon" aria-hidden="true">chevron_left</span>
-            </button>
-            <button
-              class="photo-nav next"
-              id="photoNext"
-              aria-label="Next photo"
-            >
-              <span class="icon" aria-hidden="true">chevron_right</span>
-            </button>
-            <span class="zoom-hint" id="zoomHint">Click photo to zoom</span>
-          </div>
-          <div class="photo-thumbs" id="photoThumbs"></div>
-        </div>
-        <div class="modal-details">
-          <div class="series" id="modalSeries"></div>
-          <h2 id="modalTitle"></h2>
-          <dl>
-            <dt>Sculptor</dt>
-            <dd id="modalSculptor"></dd>
-            <dt>Scale</dt>
-            <dd id="modalScale"></dd>
-            <dt class="size-row">Size</dt>
-            <dd class="size-row" id="modalSize"></dd>
-            <dt>Price</dt>
-            <dd id="modalPrice"></dd>
-            <dt>Added</dt>
-            <dd id="modalDate"></dd>
-          </dl>
-          <p class="description" id="modalDescription"></p>
-          <div class="modal-actions">
-            <a class="btn" id="modalOrder" href="ordering.html#order"
-              ><span class="icon" aria-hidden="true">shopping_bag</span>How to order</a
-            >
-            <p class="modal-note" id="modalNote">
-              Made to order · ready to ship in about two weeks
-            </p>
-          </div>
-          <div id="modalCompare" hidden></div>
-        </div>
-      </div>
+<!-- Featured piece, set from the admin page. Hidden when nothing is marked featured. -->
+<section class="featured" id="featuredSection" style="display: none">
+  <h2 class="section-heading">Featured piece</h2>
+  <article class="featured-card" id="featuredCard" tabindex="0">
+    <div class="featured-image">
+      <img id="featuredImage" src="" alt="" />
+      <span class="photo-count" id="featuredPhotoCount" hidden></span>
     </div>
+    <div class="featured-details">
+      <div class="series" id="featuredSeries"></div>
+      <h3 id="featuredName"></h3>
+      <dl>
+        <dt>Sculptor</dt>
+        <dd id="featuredSculptor"></dd>
+        <dt>Scale</dt>
+        <dd id="featuredScale"></dd>
+        <dt class="size-row">Size</dt>
+        <dd class="size-row" id="featuredSize"></dd>
+        <dt>Price</dt>
+        <dd id="featuredPrice"></dd>
+      </dl>
+      <p class="compare-line" id="featuredCompare"></p>
+      <p class="description" id="featuredDescription"></p>
+      <span class="view-hint">View photos &amp; details →</span>
+    </div>
+  </article>
+</section>
 
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <a class="logo" href="index.html">
-            <img src="assets/icons/favicon-32.png" alt="" class="logo-icon" />
-            Otaku <span>Shelf</span>
-          </a>
-          <p class="footer-jp" lang="ja">オタクシェルフ</p>
-          <p class="footer-tagline">
-            Personalized, hand-painted anime, gaming, and pop-culture
-            collectibles, created with care and made to order.
-          </p>
-        </div>
+<h2 class="section-heading" id="restHeading" style="display: none">
+  More from the shelf
+</h2>
 
-        <nav class="footer-col" aria-label="Footer">
-          <h2>Explore</h2>
-          <ul>
-            <li><a href="index.html"><span class="icon" aria-hidden="true">photo_library</span>Gallery</a></li>
-            <li><a href="prices.html"><span class="icon" aria-hidden="true">sell</span>Price list</a></li>
-            <li><a href="about.html"><span class="icon" aria-hidden="true">info</span>About us</a></li>
-            <li><a href="ordering.html"><span class="icon" aria-hidden="true">shopping_bag</span>How to order</a></li>
-            <li><a href="ordering.html#care"><span class="icon" aria-hidden="true">clean_hands</span>Caring for your figure</a></li>
-            <li><a href="ordering.html#faq"><span class="icon" aria-hidden="true">help</span>FAQ</a></li>
-          </ul>
-        </nav>
+<main class="gallery" id="gallery">
+  <!-- Figure cards are injected here by js/main.js -->
+  <p class="empty-state">Loading collection…</p>
+</main>
 
-        <div class="footer-col">
-          <h2>Contact</h2>
-          <ul>
-            <li>
-              <a
-                href="https://www.etsy.com/ca/shop/OtakuShelfShop"
-                target="_blank"
-                rel="noopener"
-                ><span class="icon" aria-hidden="true">storefront</span>Etsy shop</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://www.youtube.com/@OtakuShelfShop"
-                target="_blank"
-                rel="noopener"
-                ><span class="icon" aria-hidden="true">smart_display</span>YouTube</a
-              >
-            </li>
-          </ul>
-          <h2></h2>
-          <h2>Legal</h2>
-          <ul>
-            <li><a href="terms.html"><span class="icon" aria-hidden="true">gavel</span>Terms of service</a></li>
-            <li><a href="policies.html"><span class="icon" aria-hidden="true">policy</span>Policies</a></li>
-          </ul>
-        </div>
+<section class="home-band" aria-labelledby="philosophyHeading">
+  <h2 class="visually-hidden" id="philosophyHeading">Our philosophy</h2>
+  <blockquote class="philosophy">
+    <p>
+      A collectible should be more than something you own. It should be
+      something you’re proud to display.
+    </p>
+  </blockquote>
+  <p>
+    Every figure is a labour of detail and passion: printed, sanded, primed,
+    airbrushed, hand-painted, assembled, and carefully packed, with individual
+    attention at every step.
+    <a href="about.html#process">See how a figure is made →</a>
+  </p>
+</section>
+
+<!-- Modal: zoom + details -->
+<div class="modal-overlay" id="modalOverlay">
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+    <button class="modal-close" id="modalClose" aria-label="Close">
+      <span class="icon" aria-hidden="true">close</span>
+    </button>
+    <div class="modal-media">
+      <div class="modal-image" id="modalImageWrap">
+        <img id="modalImage" src="" alt="" draggable="false" />
+        <button
+          class="photo-nav prev"
+          id="photoPrev"
+          aria-label="Previous photo"
+        >
+          <span class="icon" aria-hidden="true">chevron_left</span>
+        </button>
+        <button class="photo-nav next" id="photoNext" aria-label="Next photo">
+          <span class="icon" aria-hidden="true">chevron_right</span>
+        </button>
+        <span class="zoom-hint" id="zoomHint">Select photo to zoom</span>
       </div>
-
-      <div class="footer-bottom">
-        <span>&copy; 2026 Otaku Shelf. All rights reserved.</span>
-        <span class="footer-bottom-links">
-          <a href="admin/"><span class="icon" aria-hidden="true">admin_panel_settings</span>Admin</a>
-          <a href="#top"><span class="icon" aria-hidden="true">arrow_upward</span>Back to top</a>
-        </span>
+      <div class="photo-thumbs" id="photoThumbs"></div>
+    </div>
+    <div class="modal-details">
+      <div class="series" id="modalSeries"></div>
+      <h2 id="modalTitle"></h2>
+      <dl>
+        <dt>Sculptor</dt>
+        <dd id="modalSculptor"></dd>
+        <dt>Scale</dt>
+        <dd id="modalScale"></dd>
+        <dt class="size-row">Size</dt>
+        <dd class="size-row" id="modalSize"></dd>
+        <dt>Price</dt>
+        <dd id="modalPrice"></dd>
+        <dt>Added</dt>
+        <dd id="modalDate"></dd>
+      </dl>
+      <p class="description" id="modalDescription"></p>
+      <div class="modal-actions">
+        <a class="btn" id="modalOrder" href="ordering.html#order"
+          ><span class="icon" aria-hidden="true">shopping_bag</span>How to
+          order</a
+        >
+        <p class="modal-note" id="modalNote">
+          Made to order · ships in about two weeks
+        </p>
       </div>
-    </footer>
-
-    <script src="js/compare.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/compare-ui.js"></script>
-    <script src="js/main.js"></script>
-  </body>
-</html>
+      <div id="modalCompare" hidden></div>
+    </div>
+  </div>
+</div>

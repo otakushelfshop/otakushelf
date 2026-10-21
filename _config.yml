@@ -1,0 +1,13 @@
+# Jekyll settings. GitHub Pages builds the site with these automatically.
+title: Otaku Shelf
+description: >-
+  Otaku Shelf is a Canadian studio making 3D-printed, hand-painted anime,
+  gaming, and pop-culture collectibles, all made to order.
+
+# Scripts every page loads unless its front matter sets its own `scripts:`
+# list. Most pages need none; the gallery and price list set their own.
+default_scripts: []
+
+# Don't publish these.
+exclude:
+  - README.md

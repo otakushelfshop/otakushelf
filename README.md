@@ -20,6 +20,12 @@ okakushelf/
 ├── prices.html           Price list: every piece with a price, grouped and searchable
 ├── about.html            Studio story, what we make, how a figure is made, tools
 ├── ordering.html         Ordering, shipping, sizes, custom work, care, FAQ, contact
+├── policies.html         What we will/won't make, Etsy ordering, after-sale
+├── terms.html            Terms & conditions
+├── _layouts/default.html Shared page shell: <head> metadata, header, footer, scripts
+├── _includes/header.html Site header + main nav (shared by every page)
+├── _includes/footer.html Site footer (shared by every page)
+├── _config.yml           Jekyll settings: site title, default description, default scripts
 ├── admin/index.html      Loads Sveltia CMS
 ├── admin/config.yml      CMS settings: repo, fields, photo folder, image resizing
 ├── admin.html            Redirects old /admin.html links to /admin/
@@ -171,18 +177,47 @@ difference in size easy to read.
   always shown as a solid shape. A figure with only a Silhouette (no Scale
   picture) still works.
 
+## Shared header, footer and page metadata
+
+The pages are assembled by [Jekyll](https://jekyllrb.com/), which GitHub
+Pages runs automatically on every push, so there's nothing to set up.
+
+- Edit the header/nav once in `_includes/header.html` and the footer in
+  `_includes/footer.html`; every page picks the change up. The nav
+  highlights the current page by itself.
+- Each page starts with a settings block (front matter) for its own metadata:
+
+  ```yaml
+  ---
+  layout: default
+  title: "About Us"              # tab title becomes "About Us — Otaku Shelf"
+  description: "Shown in search results and link previews."
+  image: assets/statues/web/example.webp   # optional link-preview image
+  scripts: [js/data.js, js/main.js]        # optional; most pages need none
+  ---
+  ```
+
+  Leave out `title`/`description` to use the site-wide ones in `_config.yml`.
+- A new page needs that block at the top (at least `layout: default`) and
+  only its own content below — no `<head>`, header or footer.
+
 ## Running it locally
 
-No build step. From this folder run `python3 -m http.server` and visit
-`http://localhost:8000` (opening `index.html` directly won't work,
-because browsers block `fetch` on local files).
+Because the pages are assembled by Jekyll, `python3 -m http.server` will
+show them without their header and footer. To preview locally, install
+Jekyll (`gem install jekyll`) and run `jekyll serve` from this folder, then
+visit `http://localhost:4000`. Or just push and check the live site.
 
 ## Placeholders to fill in
 
 Search the HTML for `EDIT ME`. Still to come from the client:
 
-- The real Etsy shop link (`YOUR-SHOP-NAME` on `ordering.html` and in
-  every page's footer), email, and social accounts.
+- Email and social accounts. They're commented out in the Contact
+  section of `ordering.html` so placeholders don't show on the live site;
+  fill them in and remove the comment markers. (The Etsy shop and YouTube
+  links are set.)
 - The founding story and how long the studio has been running (`about.html`).
 - Work-in-progress and studio photos, plus exact resin/filament/paint brands.
 - Photos, measurements, scales, and Etsy links for each piece (via the admin).
+  Enter scales as just `1/16`; the gallery adds the word "scale".
+- Policies: how long customers have to cancel and to report shipping damage.

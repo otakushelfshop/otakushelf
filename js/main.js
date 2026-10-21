@@ -90,6 +90,12 @@ function photosOf(fig) {
   return [...new Set(all.filter(Boolean))];
 }
 
+/** "1/16" -> "1/16 scale"; other wording ("Nendoroid", "Non-scale") is left alone. */
+function scaleLabel(scale) {
+  const text = String(scale).trim();
+  return /^1\s*[/:]\s*\d+$/.test(text) ? `${text} scale` : text;
+}
+
 function photoCountLabel(n) {
   return n > 1 ? `${n} photos` : '';
 }
@@ -107,8 +113,8 @@ function renderGallery(figures) {
   if (!figures.length) {
     galleryEl.innerHTML = `
       <p class="empty-state">
-        No figures on the shelf yet. Head to the
-        <a href="admin/">admin page</a> to add the first one.
+        New pieces are on their way. In the meantime, see the
+        <a href="prices.html">price list</a>.
       </p>`;
     return;
   }
@@ -126,7 +132,7 @@ function renderGallery(figures) {
         <div class="card-body">
           <div class="series">${escapeHtml(fig.series || '')}</div>
           <h3>${escapeHtml(fig.name)}</h3>
-          ${fig.scale ? `<div class="meta-line">${escapeHtml(fig.scale)}</div>` : ''}
+          ${fig.scale ? `<div class="meta-line">${escapeHtml(scaleLabel(fig.scale))}</div>` : ''}
           <div class="compare-line" data-compare-for="${escapeHtml(fig.id)}" hidden></div>
           ${fig.price !== null ? `<div class="price-line">${escapeHtml(formatPrice(fig.price))}</div>` : ''}
         </div>
@@ -155,7 +161,7 @@ function renderFeatured(fig, hasOthers) {
   featuredPhotoCount.hidden = !featuredPhotoCount.textContent;
 
   featuredSection.style.display = 'block';
-  restHeading.style.display = hasOthers ? 'block' : 'none';
+  restHeading.style.display = hasOthers ? 'flex' : 'none';
 }
 
 // Spotlight glow follows the cursor across each card.
@@ -179,7 +185,7 @@ let currentName = '';
 
 function setZoom(on) {
   modalImageWrap.classList.toggle('zoomed', on);
-  zoomHint.textContent = on ? 'Move to explore · click to zoom out' : 'Click photo to zoom';
+  zoomHint.textContent = on ? 'Move to explore · select again to zoom out' : 'Select photo to zoom';
 }
 
 function showPhoto(index) {
@@ -304,8 +310,8 @@ async function init() {
     console.error('Could not load figures:', err);
     galleryEl.innerHTML = `
       <p class="empty-state">
-        Couldn't load the collection. Check that <code>data/figures.json</code>
-        exists and is valid JSON (see README.md).
+        Sorry, the collection couldn’t load. Please refresh the page or try
+        again later.
       </p>`;
     return;
   }
